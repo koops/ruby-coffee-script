@@ -20,7 +20,7 @@ module CoffeeScript
   def self.compile(script, options = {})
     script = script.read if script.respond_to?(:read)
     command = "#{coffee_bin} -sp"
-    command += " --no-wrap" if options[:no_wrap]
+    command += " --bare" if options[:bare]
 
     IO.popen(command, "w+") do |f|
       f << script
