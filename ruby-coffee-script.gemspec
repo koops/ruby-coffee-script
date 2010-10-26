@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
-  s.name      = 'coffee-script'
-  s.version   = '1.0.0'
-  s.date      = '2010-9-10'
+  s.name      = 'ruby-coffee-script'
+  s.version   = '1.1.0'
+  s.date      = '2010-10-26'
 
   s.homepage    = "http://github.com/josh/ruby-coffee-script"
   s.summary     = "Ruby CoffeeScript wrapper"
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.requirements << 'node'
   s.requirements << 'coffee-script'
 
-  s.authors           = ['Jeremy Ashkenas', 'Joshua Peek']
+  s.authors           = ['Jeremy Ashkenas', 'Joshua Peek', 'Ryan Koopmans']
   s.email             = 'josh@joshpeek.com'
   s.rubyforge_project = 'coffee-script'
 end
