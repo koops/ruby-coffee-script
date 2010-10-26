@@ -28,4 +28,17 @@ module CoffeeScript
       f.read
     end
   end
+  
+  # Execute a script (String or IO) and return the stdout.
+  # Note: the first argument will be process.argv[3], the second process.argv[4], etc.
+  def self.execute(script, *args)
+    script = script.read if script.respond_to?(:read)
+    command = "#{coffee_bin} -s #{args.join(' ')}"    
+    
+    IO.popen(command, "w+") do |f|
+      f << script
+      f.close_write
+      f.read
+    end    
+  end
 end
