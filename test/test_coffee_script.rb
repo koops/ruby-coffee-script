@@ -14,24 +14,30 @@ class TestCoffeeScript < Test::Unit::TestCase
       CoffeeScript.compile(io)
   end
 
-  def test_compile_bare
+  def test_compile_with_no_wrap
     assert_equal "puts('Hello, World!');",
-      CoffeeScript.compile("puts 'Hello, World!'\n", :bare => true)
+      CoffeeScript.compile("puts 'Hello, World!'\n", :no_wrap => true)
   end
+
+  # This option is on the master branch as of 29 Oct 10.
+#   def test_compile_bare
+#     assert_equal "puts('Hello, World!');",
+#       CoffeeScript.compile("puts 'Hello, World!'\n", :bare => true)
+#   end
   
-  def test_execute
+  def test_evaluate
     assert_equal "howdy\n", 
-      CoffeeScript.execute("require('sys').puts('howdy')")
+      CoffeeScript.evaluate("require('sys').puts('howdy')")
   end
   
-  def test_execute_with_io
+  def test_evaluate_with_io
     io = StringIO.new("puts 'howdy'\n")
     assert_equal "howdy\n", 
-      CoffeeScript.execute(io)
+      CoffeeScript.evaluate(io)
   end
   
-  def test_execute_with_args
+  def test_evaluate_with_args
     assert_equal "first and second\n",
-      CoffeeScript.execute('require("sys").puts(process.argv[3] + " and " + process.argv[4])', 'first', 'second')
+      CoffeeScript.evaluate('require("sys").puts(process.argv[3] + " and " + process.argv[4])', 'first', 'second')
   end
 end

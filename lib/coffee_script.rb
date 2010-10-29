@@ -18,27 +18,26 @@ module CoffeeScript
 
   # Compile a script (String or IO) to JavaScript.
   def self.compile(script, options = {})
-    script = script.read if script.respond_to?(:read)
     command = "#{coffee_bin} -sp"
     command += " --bare" if options[:bare]
+    command += " --no-wrap" if options[:no_wrap]
+    run_script_with_command(script, command)
+  end
+  
+  # Evaluate a script (String or IO) and return the stdout.
+  # Note: the first argument will be process.argv[3], the second process.argv[4], etc.
+  def self.evaluate(script, *args)
+    run_script_with_command(script, "#{coffee_bin} -s #{args.join(' ')}")
+  end
 
+  private
+
+  def self.run_script_with_command(script, command)
+    script = script.read if script.respond_to?(:read)
     IO.popen(command, "w+") do |f|
       f << script
       f.close_write
       f.read
     end
-  end
-  
-  # Execute a script (String or IO) and return the stdout.
-  # Note: the first argument will be process.argv[3], the second process.argv[4], etc.
-  def self.execute(script, *args)
-    script = script.read if script.respond_to?(:read)
-    command = "#{coffee_bin} -s #{args.join(' ')}"    
-    
-    IO.popen(command, "w+") do |f|
-      f << script
-      f.close_write
-      f.read
-    end    
   end
 end
